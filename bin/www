@@ -39,11 +39,12 @@ server.on('listening', onListening);
 
 io.on('connection', (socket) => {
   console.log(`User connected ${socket.id}`);
-
+  socket.join('kampung');
   socket.emit('receive_message', { text: 'Welcome to kampung channel', id: new Date().getTime(), sender: 'mirc bot' });
   // We can write our socket event listeners in here...
   socket.on('send_message', (data) => {
     console.log(data);
+    socket.to('kampung').emit('receive_message', data);
     socket.emit('receive_message', data);
   })
 });
