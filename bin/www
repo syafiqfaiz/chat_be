@@ -24,7 +24,7 @@ var server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://chat-fe-5qe6.onrender.com' ||'http://localhost:5173',
+    origin: process.env.ORIGIN ||'http://localhost:5173',
     methods: ['GET', 'POST'],
   },
 });
@@ -108,5 +108,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on: ' + bind + ', origin: ' + process.env.ORIGIN);
 }
